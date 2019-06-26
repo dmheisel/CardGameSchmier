@@ -1,4 +1,4 @@
-const Card = require('./card.js')
+//const Card = require('./card.js')
 
 class Deck {
 	constructor() {
@@ -7,6 +7,7 @@ class Deck {
 		this.names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack',
 			'Queen', 'King', 'Ace'];
 		this.build();
+		this.shuffle();
 	};
 
 	build() {
@@ -27,7 +28,7 @@ class Deck {
 		loops through starting from end and swaps that card with a random card in
     the deck, repeating for every card from last to first.*/
 
-		for (let i = this.cards.length - 1; i > 0; i++) {
+		for (let i = this.cards.length - 1; i > 0; i--) {
 			let randIndex = Math.floor(Math.random() * i);
 			let temp = this.cards[i];
 			//saves last card as temp variable
@@ -43,4 +44,4 @@ class Deck {
 	}
 };
 
-module.exports = Deck;
+//module.exports = Deck;

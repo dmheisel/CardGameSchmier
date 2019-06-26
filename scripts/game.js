@@ -1,5 +1,8 @@
-let x = document.querySelectorAll('playername');
+// TODO: html page for player input
+// TODO: figure out bidding round
+// TODO: figure out determining dealer/first bidder
 
-for (i=0; i<x.length; i++) {
 
-}
+//let x = document.querySelectorAll('playername');
+
+round();
