@@ -14,23 +14,23 @@ let playerNames = [
 ];
 let playerList = [];
 
-for (let name of playerNames) {
-	playerList.push(new Player(name));
+for ( let name of playerNames ) {
+	playerList.push( new Player( name ) );
 };
 
 //simulates dealing -- todo need to flesh out dealing and bidding later
-for (let i = 0; i < 6; i++) {
-	for (let player of playerList) {
-		player.drawCard(deck);
+for ( let i = 0; i < 6; i++ ) {
+	for ( let player of playerList ) {
+		player.drawCard( deck );
 	};
 };
 
 let trumpSuit = 'Spades';
-for (let player of playerList) {
-	for (let card of player.hand) {
-		if (card.suit === trumpSuit) {
+for ( let player of playerList ) {
+	for ( let card of player.hand ) {
+		if ( card.suit === trumpSuit ) {
 			card.toggleTrump();
-		} else if (card.color === 'Black' && card.name.includes('Jack')) {
+		} else if ( card.color === 'Black' && card.name.includes( 'Jack' ) ) {
 			card.toggleJick();
 			card.toggleTrump();
 		}
@@ -43,8 +43,10 @@ for (let player of playerList) {
 const round = () => {
 	//one round of play consists of bidding round, and repeating tricks until
 	//players have used all their cards.
+	let numOfTricks = 6;
+	let biddingWinnerIndex = 2;
 
-	const trick = (startingIndex) => {
+	const trick = ( startingIndex ) => {
 		/*a trick is one round of play.  First trick starts with winner of bidding
 		round, following tricks start with winner of previous trick.
 		During play, all players play one card.  Players must follow suit of the
@@ -58,58 +60,66 @@ const round = () => {
 		//empty array used to contain list of all cards played in trick
 
 		let trickSuit;
-		for (let i = 0; i < playerList.length; i++) {
-			let pointer = (i + offset) % playerList.length;
-			let currentPlayer = playerList[pointer];
+		//suit of leading card in the trick.  used for determining winner if no trump.
+
+
+		for ( let i = 0; i < playerList.length; i++ ) {
+			let pointer = ( i + offset ) % playerList.length;
+			let currentPlayer = playerList[ pointer ];
 			//pointer points to starting player
 
 			//here will be code to ask each player to play a card for the trick
 			//now using random to pull random card from each players _hand
-			let randIndex = Math.floor(Math.random * currentPlayer.hand.length);
-			chosenCard = currentPlayer.playCard(randIndex);
-			playedCards.push(chosenCard);
+			let randIndex = Math.floor( Math.random * currentPlayer.hand.length );
+			chosenCard = currentPlayer.playCard( randIndex );
+			playedCards.push( chosenCard );
 
 			//if player plays low in trump, toggles lowPoint for scoring later
-			if (chosenCard.isTrump && chosenCard.value === 2) {
+			if ( chosenCard.isTrump && chosenCard.value === 2 ) {
 				currentPlayer.toggleLowPoint();
-				console.log(`${currentPlayer.name} has played the low card.`)
+				console.log( `${currentPlayer.name} has played the low card.` )
 			}
 
 			//declares suit of trick (suit of card led)
-			//trick suit can be trumped but otherwise must be followed if possible
-			if (i === 0) {
-				trickSuit = playedCards[0].suit;
-				console.log(`${trickSuit} was led.`)
+			//trick suit can be trumped over but otherwise must be followed if possible
+			if ( i === 0 ) {
+				trickSuit = playedCards[ 0 ].suit;
+				console.log( `${trickSuit} was led.` )
 			};
 		};
 
-		const determineWinner = (cardsArr) => {
+		const determineWinner = ( cardsArr ) => {
 			//function for determining which card & player took the trick
 			let winningCard;
-
-			let trumpCards = cardsArr //trump cards always beat other cards
-				.filter((x) => x.isTrump)
-				.sort((a, b) => b.value - a.value);
-			if (trumpCards.length > 0) {
-				winningCard = trumpCards[0];
+			//trump cards always beat other cards
+			let trumpCards = cardsArr
+				.filter( ( x ) => x.isTrump )
+				.sort( ( a, b ) => b.value - a.value );
+			if ( trumpCards.length > 0 ) {
+				winningCard = trumpCards[ 0 ];
 			} else {
-				let trickSuitCards =
-					cardsArr // only cards following trick suit can win
-					.filter((x) => x.suit === trickSuit)
-					.sort((a, b) => b.value - a.value);
-				winningCard = trickSuitCards[0];
+				// only cards in same suit as leading card can take trick
+				let trickSuitCards = cardsArr
+					.filter( ( x ) => x.suit === trickSuit )
+					.sort( ( a, b ) => b.value - a.value );
+				winningCard = trickSuitCards[ 0 ];
 			};
 
-			console.log(`${winningCard.name} took the trick.`);
-			let winnerIndex = (offset + cardsArr.indexOf(winningCard)) %
+			console.log( `${winningCard.name} took the trick.` );
+			let winnerIndex = ( offset + cardsArr.indexOf( winningCard ) ) %
 				playerList.length;
-			let trickWinner = playerList[winnerIndex];
-			console.log(`${trickWinner.name} took the trick.`)
+			let trickWinner = playerList[ winnerIndex ];
+			console.log( `${trickWinner.name} took the trick.` )
 			return trickWinner;
 		};
-		determineWinner(playedCards)
-			.takenCards.push(playedCards);
+		let trickWinner = determineWinner( playedCards )
+		for ( let card of playedCards ) {
+			trickWinner.takenCards.push( card );
+		}
+		return playerList.indexOf( trickWinner );
 	};
-	trick(1);
 
+	for ( i = 0; i < numOfTricks; i++ ) {
+		let startingIndex = trick( biddingWinnerIndex );
+	};
 };
