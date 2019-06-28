@@ -5,4 +5,4 @@
 
 //let x = document.querySelectorAll('playername');
 
-round();
+tallyScore( round( 2 ) );
