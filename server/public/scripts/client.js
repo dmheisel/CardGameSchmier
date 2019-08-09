@@ -3,6 +3,7 @@
 // TODO: figure out determining dealer/first bidder
 
 
+
 //let x = document.querySelectorAll('playername');
 
-tallyScore( round( 2 ) );
+// tallyScore( round( 2 ) );

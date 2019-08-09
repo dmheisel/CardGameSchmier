@@ -1,0 +1,27 @@
+{
+  "name": "CardGameSchmier",
+  "version": "1.0.0",
+  "description": "Javascript/Html/CSS exercise.  Working on building a working version of a card game my family plays every fall during hunting season.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmheisel/CardGameSchmier.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmheisel/CardGameSchmier/issues"
+  },
+  "homepage": "https://github.com/dmheisel/CardGameSchmier#readme",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "sweetalert": "^2.1.2"
+  }
+}
