@@ -1,4 +1,4 @@
-//const Card = require('./card.js')
+const Card = require('./card.js')
 
 class Deck {
 	constructor() {
@@ -11,11 +11,10 @@ class Deck {
 
 	build() {
 		//builds a deck of cards from suits & names, ace high
-		for ( let i = 0; i < this.suits.length; i++ ) {
-			let suit = this.suits[ i ]
+		for ( let suit of suits ) {
 			let val = 2
-			for ( let n = 0; n < this.names.length; n++ ) {
-				let card = new Card( this.names[ n ], suit, val );
+			for ( let name of names ) {
+				let card = new Card( name, suit, val );
 				val++;
 				this.cards.push( card );
 
@@ -39,8 +38,9 @@ class Deck {
 	};
 	deal() {
 		//deals out the top card from the deck.
-		return this.cards.pop()
+		let dealtCard = this.cards.pop()
+		return dealtCard;
 	}
 };
 
-//module.exports = Deck;
+module.exports = Deck;

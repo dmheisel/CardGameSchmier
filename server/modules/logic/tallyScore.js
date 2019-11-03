@@ -35,3 +35,5 @@ const tallyScore = ( players ) => {
 	};
 	tallyGamePoint( players );
 };
+
+module.exports = tallyScore;

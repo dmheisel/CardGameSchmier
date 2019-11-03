@@ -1,9 +1,12 @@
-// TODO: html page for player input
-// TODO: figure out bidding round
-// TODO: figure out determining dealer/first bidder
+console.log('js sourced');
 
+$(document).ready( handleReady );
 
+function handleReady() {
+  getCards();
+}
 
-//let x = document.querySelectorAll('playername');
-
-// tallyScore( round( 2 ) );
+function getCards() {
+  let players = [playerOne];
+  
+}
